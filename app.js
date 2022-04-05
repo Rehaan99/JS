@@ -55,17 +55,17 @@ function filterTodo(event){
     const todos = todoList.childNodes;
     todos.forEach(function(todo){
         switch(event.target.value){
-            case "all":
+            case "All":
                 todo.style.display="flex";
                 break;
-            case "completed":
+            case "Complete":
                 if (todo.classList.contains("completed")){
                     todo.style.display="flex";
                 } else{
                     todo.style.display="none";
                 }
                 break;
-            case "uncompleted":
+            case "Incomplete":
                 if (todo.classList.contains("completed")){
                    todo.style.display="none";
                 } else{

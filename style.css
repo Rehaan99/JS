@@ -5,9 +5,9 @@
 }
 
 body{
-    background-image: linear-gradient(120deg, #f6d365,#fda085);
-    color: white;
-    font-family: "Poppins", sans-serif;
+    background-color: #ecebeb;
+    color: rgb(0, 0, 0);
+    font-family: 'PT Serif','Palatino','Georgia',serif;
     min-height: 100vh;
 }
 header{
@@ -29,13 +29,13 @@ form button{
     background: white;
 }
 form button{
-    color: #d88771;
+    color: #000000;
     background: white;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 form button:hover{
-    background: #d88771;
+    background: #000000;
     color:white;
 }
 
@@ -57,6 +57,7 @@ form button:hover{
     justify-content: space-between;
     align-items: center;
     transition:all 0.5s ease;
+    font-family: 'IBM Plex Sans','Helvetica Neue','Arial',sans-serif;
 }
 .todo li{
     flex: 1; /* somehow moved the buttons next to each other on the far right of the dropdown */
