@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-GB"><!--- Set the Webpage language to English --->
+<head> <!--- meta data goes in the head-->
+    <meta charset="UTF-8"><!--- Signifies we are using UNICODE and not ASCII --->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--- Research more info about Meta data --->
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel ="stylesheet" href="./style.css" /> <!--- This Allows for the program to make use of CSS --->    
+    <title>First JS</title> <!--- Title of the webpage, will show as the tab name-->
+</head>
+<body>
+    <header>
+        <h1> My To do List</h1>
+    </header>
+    <form> <!--- used to block code that will be part of a data capture (e.g entering username and password)-->
+        <input type="text " class="todo-input"/>
+        <button class="todo-button" type="submit">
+        <i class= "fas fa-plus-square"></i>
+    </button>
+    <div class="select">
+        <select name="todos" class="filter-todo">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="uncompleted">Uncompleted</option>
+        </select>
+    </div>
+    </form>
+    <div class="todo-container">
+        <ul class="todo-list"></ul> 
+    </div>    
+
+   
+    <script src = "./app.js" defer></script><!--- This Allows for the program to make use of JS --->
+</body>
+</html>
