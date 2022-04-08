@@ -11,7 +11,12 @@ filterOption.addEventListener("change", filterTodo);
 
 //functions
 function addTodo(event) {
-  const taskList = { task: todoInput.value, id: 1, isComplete: false },
+  const taskList = {
+      task: todoInput.value,
+      id: 1,
+      isComplete: false,
+      wontDo: false,
+    },
     todoDiv = document.createElement("div"),
     newTodo = document.createElement("li"),
     completedButton = document.createElement("button"),
