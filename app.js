@@ -28,8 +28,6 @@ function addTaskToPage(todo) {
     completedButton = document.createElement("button"),
     trashButton = document.createElement("button");
 
-  saveLocalTodos(taskList);
-  event.preventDefault();
   todoDiv.classList.add("todo");
   newTodo.innerText = todo;
   newTodo.classList.add("todo-item");
@@ -114,7 +112,9 @@ function removeLocalToDos(todo) {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   const todoIndex = todo.children[0].innerText;
-  todos.splice(todos.indexOf(todoIndex), 1);
+  todos = todos.filter(function (todoo) {
+    return todoo.task !== todoIndex;
+  });
   console.log(todoIndex);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
