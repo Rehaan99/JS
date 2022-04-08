@@ -82,24 +82,21 @@ function filterTodo(event) {
   });
 }
 
+function localStorageTasks() {
+  return (todos =
+    localStorage.getItem("todos") === null
+      ? (todos = [])
+      : JSON.parse(localStorage.getItem("todos")));
+}
+
 function saveLocalTodos(todo) {
-  let todos;
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
-  }
+  const todos = localStorageTasks();
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function getTodos() {
-  let todos;
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
-  }
+  const todos = localStorageTasks();
   todos.forEach(({ task: todo }) => {
     addTaskToPage(todo);
   });
@@ -112,8 +109,8 @@ function removeLocalToDos(todo) {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   const todoIndex = todo.children[0].innerText;
-  todos = todos.filter(function (todoo) {
-    return todoo.task !== todoIndex;
+  todos = todos.filter(function (task) {
+    return task.task !== todoIndex;
   });
   console.log(todoIndex);
   localStorage.setItem("todos", JSON.stringify(todos));
