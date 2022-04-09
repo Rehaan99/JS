@@ -102,16 +102,11 @@ function getTodos() {
   });
 }
 function removeLocalToDos(todo) {
-  let todos;
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
-  }
+  const todos = localStorageTasks();
   const todoIndex = todo.children[0].innerText;
-  todos = todos.filter(function (task) {
+  const filteredTodos = todos.filter(function (task) {
     return task.task !== todoIndex;
   });
   console.log(todoIndex);
-  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem("todos", JSON.stringify(filteredTodos));
 }
