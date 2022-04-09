@@ -3,13 +3,18 @@ const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 
-//event listener
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("change", filterTodo);
 
-//functions
+function getTodos() {
+  const todos = localStorageTasks();
+  todos.forEach(({ task: todo }) => {
+    addTaskToPage(todo);
+  });
+}
+
 function addTodo(event) {
   const taskList = {
     task: todoInput.value,
@@ -42,6 +47,19 @@ function addTaskToPage(todo) {
   todoInput.value = "";
 }
 
+function saveLocalTodos(todo) {
+  const todos = localStorageTasks();
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function localStorageTasks() {
+  return (todos =
+    localStorage.getItem("todos") === null
+      ? (todos = [])
+      : JSON.parse(localStorage.getItem("todos")));
+}
+
 function deleteCheck(event) {
   const item = event.target;
   if (item.classList[0] === "trash-btn") {
@@ -55,6 +73,15 @@ function deleteCheck(event) {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
   }
+}
+
+function removeLocalToDos(todo) {
+  const todos = localStorageTasks();
+  const todoIndex = todo.children[0].innerText;
+  const filteredTodos = todos.filter(function (task) {
+    return task.task !== todoIndex;
+  });
+  localStorage.setItem("todos", JSON.stringify(filteredTodos));
 }
 
 function filterTodo(event) {
@@ -80,33 +107,4 @@ function filterTodo(event) {
         break;
     }
   });
-}
-
-function localStorageTasks() {
-  return (todos =
-    localStorage.getItem("todos") === null
-      ? (todos = [])
-      : JSON.parse(localStorage.getItem("todos")));
-}
-
-function saveLocalTodos(todo) {
-  const todos = localStorageTasks();
-  todos.push(todo);
-  localStorage.setItem("todos", JSON.stringify(todos));
-}
-
-function getTodos() {
-  const todos = localStorageTasks();
-  todos.forEach(({ task: todo }) => {
-    addTaskToPage(todo);
-  });
-}
-function removeLocalToDos(todo) {
-  const todos = localStorageTasks();
-  const todoIndex = todo.children[0].innerText;
-  const filteredTodos = todos.filter(function (task) {
-    return task.task !== todoIndex;
-  });
-  console.log(todoIndex);
-  localStorage.setItem("todos", JSON.stringify(filteredTodos));
 }
