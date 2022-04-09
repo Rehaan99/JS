@@ -83,21 +83,21 @@ function localStorageTasks() {
 }
 
 function taskButtonClickCheck(event) {
-  const item = event.target;
-  const todo = item.parentElement;
+  const item = event.target,
+    todo = item.parentElement;
 
   if (item.classList[0] === "trash-btn") {
-    todo.classList.add("fall");
     removeLocalToDos(todo);
+    todo.classList.add("fall");
     todo.addEventListener("transitionend", function () {
       todo.remove();
     });
   } else if (item.classList[0] === "complete-btn") {
     todo.classList.toggle("completed");
-    const todos = localStorageTasks();
-    const filteredTodos = todos.filter(function (task) {
-      return task.id === parseInt(todo.children[0].id);
-    });
+    const todos = localStorageTasks(),
+      filteredTodos = todos.filter(function (task) {
+        return task.id === parseInt(todo.children[0].id);
+      });
     filteredTodos[0].isComplete = !filteredTodos[0].isComplete;
     removeLocalToDos(todo);
     saveLocalTodos(filteredTodos[0]);
@@ -105,25 +105,31 @@ function taskButtonClickCheck(event) {
 }
 
 function removeLocalToDos(todo) {
-  const todos = localStorageTasks();
-  const todoIndex = todo.children[0].id;
-  const filteredTodos = todos.filter(function (task) {
-    return task.id !== parseInt(todoIndex);
-  });
+  const todos = localStorageTasks(),
+    todoIndex = parseInt(todo.children[0].id),
+    filteredTodos = todos.filter(function (task) {
+      return task.id !== todoIndex;
+    }),
+    deletedTask = todos.filter(function (task) {
+      return task.id === todoIndex;
+    });
 
   localStorage.setItem(
     "todos",
-    JSON.stringify(orderStorageByIds(filteredTodos))
+    JSON.stringify(orderStorageByIds(filteredTodos, deletedTask[0].id))
   );
 }
+
 function orderStorageByIds(listOfStorageTasks, deletedId) {
   listOfStorageTasks.forEach((task) => {
     if (task.id > deletedId) {
-      task.id -= 1;
+      document.getElementById(task.id.toString()).id = task.id -= 1;
     }
   });
+  //make each html list item id equal to task id
   return listOfStorageTasks;
 }
+function reassignListElementId() {}
 
 function filterTodo(event) {
   const todos = todoList.childNodes;
