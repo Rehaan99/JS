@@ -99,12 +99,12 @@ function taskButtonClickCheck(event) {
         return task.id === parseInt(todo.children[0].id);
       });
     filteredTodos[0].isComplete = !filteredTodos[0].isComplete;
-    removeLocalToDos(todo);
+    removeLocalToDos(todo, true);
     saveLocalTodos(filteredTodos[0]);
   }
 }
 
-function removeLocalToDos(todo) {
+function removeLocalToDos(todo, changedState) {
   const todos = localStorageTasks(),
     todoIndex = parseInt(todo.children[0].id),
     filteredTodos = todos.filter(function (task) {
@@ -113,11 +113,14 @@ function removeLocalToDos(todo) {
     deletedTask = todos.filter(function (task) {
       return task.id === todoIndex;
     });
-
-  localStorage.setItem(
-    "todos",
-    JSON.stringify(orderStorageByIds(filteredTodos, deletedTask[0].id))
-  );
+  if (changedState) {
+    localStorage.setItem("todos", JSON.stringify(filteredTodos));
+  } else {
+    localStorage.setItem(
+      "todos",
+      JSON.stringify(orderStorageByIds(filteredTodos, deletedTask[0].id))
+    );
+  }
 }
 
 function orderStorageByIds(listOfStorageTasks, deletedId) {
@@ -126,10 +129,8 @@ function orderStorageByIds(listOfStorageTasks, deletedId) {
       document.getElementById(task.id.toString()).id = task.id -= 1;
     }
   });
-  //make each html list item id equal to task id
   return listOfStorageTasks;
 }
-function reassignListElementId() {}
 
 function filterTodo(event) {
   const todos = todoList.childNodes;
