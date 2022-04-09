@@ -60,7 +60,7 @@ form button:hover {
   border-radius: 5px;
 }
 .todo li {
-  flex: 1; /* somehow moved the buttons next to each other on the far right of the dropdown */
+  flex: 1;
 }
 .trash-btn,
 .complete-btn {
@@ -81,7 +81,6 @@ form button:hover {
 }
 .fa-trash,
 .fa-check {
-  /* This means the icons (check mark and trash can) have no clickability so it defaults to the actual button under it. */
   pointer-events: none;
   image-resolution: 2rem;
 }
@@ -90,7 +89,6 @@ form button:hover {
   background: greenyellow;
 }
 .fall {
-  /* adding deletion animation */
   transform: translateX(15rem);
   opacity: 0;
 }
