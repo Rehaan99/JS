@@ -38,10 +38,11 @@ function addTodo(event) {
   };
   saveLocalTodos(taskList);
   event.preventDefault();
-  addTaskToPage(taskList);
+  const overallTask = JSON.parse(localStorage.getItem("todos"));
+  addTaskToPage(overallTask[overallTask.length - 1]);
 }
 
-function addTaskToPage({ task: todo, isComplete: complete }) {
+function addTaskToPage({ task: todo, isComplete: complete, id: id }) {
   const todoDiv = document.createElement("div"),
     newTodo = document.createElement("li"),
     completedButton = document.createElement("button"),
@@ -49,6 +50,7 @@ function addTaskToPage({ task: todo, isComplete: complete }) {
 
   todoDiv.classList.add("todo");
   newTodo.innerText = todo;
+  newTodo.id = id;
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
   completedButton.innerHTML = '<i class="fas fa-check"></i>';
@@ -94,7 +96,7 @@ function taskButtonClickCheck(event) {
     todo.classList.toggle("completed");
     const todos = localStorageTasks();
     const filteredTodos = todos.filter(function (task) {
-      return task.task === todo.children[0].innerText;
+      return task.id === parseInt(todo.children[0].id);
     });
     filteredTodos[0].isComplete = !filteredTodos[0].isComplete;
     removeLocalToDos(todo);
@@ -104,11 +106,23 @@ function taskButtonClickCheck(event) {
 
 function removeLocalToDos(todo) {
   const todos = localStorageTasks();
-  const todoIndex = todo.children[0].innerText;
+  const todoIndex = todo.children[0].id;
   const filteredTodos = todos.filter(function (task) {
-    return task.task !== todoIndex;
+    return task.id !== parseInt(todoIndex);
   });
-  localStorage.setItem("todos", JSON.stringify(filteredTodos));
+
+  localStorage.setItem(
+    "todos",
+    JSON.stringify(orderStorageByIds(filteredTodos))
+  );
+}
+function orderStorageByIds(listOfStorageTasks, deletedId) {
+  listOfStorageTasks.forEach((task) => {
+    if (task.id > deletedId) {
+      task.id -= 1;
+    }
+  });
+  return listOfStorageTasks;
 }
 
 function filterTodo(event) {
