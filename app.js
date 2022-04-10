@@ -131,13 +131,17 @@ function orderStorageByIds(listOfStorageTasks, deletedId) {
   });
   return listOfStorageTasks;
 }
-
+//change this so it changes the order that items show rather than hide items
 function filterTodo(event) {
   const todos = todoList.childNodes;
   todos.forEach(function (todo) {
     switch (event.target.value) {
-      case "All":
+      case "Oldest":
         todo.style.display = "flex";
+        break;
+      case "Newest":
+        break;
+      case "Alphabetical":
         break;
       case "Complete":
         if (todo.classList.contains("completed")) {
