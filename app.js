@@ -95,30 +95,31 @@ function taskButtonClickCheck(event) {
   } else if (item.classList[0] === "complete-btn") {
     todo.classList.toggle("completed");
     const todos = localStorageTasks(),
-      filteredTodos = todos.filter(function (task) {
-        return task.id === parseInt(todo.children[0].id);
-      });
-    filteredTodos[0].isComplete = !filteredTodos[0].isComplete;
+      filteredTodos = findSpecificTask(todos, todo);
+    filteredTodos.isComplete = !filteredTodos.isComplete;
     removeLocalToDos(todo, true);
-    saveLocalTodos(filteredTodos[0]);
+    saveLocalTodos(filteredTodos);
   }
+}
+
+function findSpecificTask(todos, todo) {
+  return todos.filter(function (task) {
+    return task.id === parseInt(todo.children[0].id);
+  })[0];
 }
 
 function removeLocalToDos(todo, changedState) {
   const todos = localStorageTasks(),
-    todoIndex = parseInt(todo.children[0].id),
     filteredTodos = todos.filter(function (task) {
-      return task.id !== todoIndex;
+      return task.id !== parseInt(todo.children[0].id);
     }),
-    deletedTask = todos.filter(function (task) {
-      return task.id === todoIndex;
-    });
+    deletedTask = findSpecificTask(todos, todo);
   if (changedState) {
     localStorage.setItem("todos", JSON.stringify(filteredTodos));
   } else {
     localStorage.setItem(
       "todos",
-      JSON.stringify(orderStorageByIds(filteredTodos, deletedTask[0].id))
+      JSON.stringify(orderStorageByIds(filteredTodos, deletedTask.id))
     );
   }
 }
@@ -131,7 +132,6 @@ function orderStorageByIds(listOfStorageTasks, deletedId) {
   });
   return listOfStorageTasks;
 }
-//change this so it changes the order that items show rather than hide items
 function filterTodo(event) {
   const todos = todoList.childNodes;
   todos.forEach(function (todo) {
