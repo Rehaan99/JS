@@ -30,7 +30,7 @@ function sortList(tasks) {
 }
 
 function createTask(event) {
-  if (taskInput.value < 1) {
+  if (taskInput.value.length < 0) {
     return;
   }
   const taskList = {
@@ -122,12 +122,12 @@ function removeLocalTasks(taskElement, changedState) {
   } else {
     localStorage.setItem(
       "tasks",
-      JSON.stringify(orderStorageByIds(filteredTasks, deletedTask.id))
+      JSON.stringify(orderElementsByIds(filteredTasks, deletedTask.id))
     );
   }
 }
 
-function orderStorageByIds(listOfStorageTasks, deletedId) {
+function orderElementsByIds(listOfStorageTasks, deletedId) {
   listOfStorageTasks = sortList(listOfStorageTasks);
   listOfStorageTasks.forEach((task) => {
     if (task.id > deletedId) {
