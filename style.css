@@ -38,16 +38,16 @@ form button:hover {
   color: white;
 }
 
-.todo-container {
+.task-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.todo-list {
+.task-list {
   min-width: 30%;
   list-style: none;
 }
-.todo {
+.task {
   margin: 0.5rem;
   background: white;
   color: black;
@@ -59,7 +59,7 @@ form button:hover {
   font-family: "IBM Plex Sans", "Helvetica Neue", "Arial", sans-serif;
   border-radius: 5px;
 }
-.todo li {
+.task li {
   flex: 1;
 }
 .trash-btn,
@@ -76,7 +76,7 @@ form button:hover {
   background: rgb(24, 197, 24);
   border: 2px solid rgb(0, 161, 0);
 }
-.todo-item {
+.task-item {
   padding: 0rem 0.5rem;
 }
 .fa-trash,

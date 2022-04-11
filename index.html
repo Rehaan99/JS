@@ -29,14 +29,14 @@
     </header>
 
     <form>
-      <input type="text" class="todo-input" placeholder="Add Task" />
+      <input type="text" class="task-input" placeholder="Add Task" />
 
-      <button class="todo-button" type="submit">
+      <button class="task-create-button" type="submit">
         <i class="fas fa-plus-square"></i>
       </button>
 
       <div class="select">
-        <select name="sort-todos" class="sort-todo">
+        <select name="sort-tasks" class="sort-task">
           <option value="Oldest">Oldest</option>
           <option value="Newest">Newest</option>
           <option value="Alphabetical">Alphabetical</option>
@@ -46,8 +46,8 @@
       </div>
     </form>
 
-    <div class="todo-container">
-      <ul class="todo-list"></ul>
+    <div class="task-container">
+      <ul class="task-list"></ul>
     </div>
 
     <script src="./app.js" defer></script>
