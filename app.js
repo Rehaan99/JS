@@ -30,7 +30,7 @@ function sortList(tasks) {
 }
 
 function createTask(event) {
-  if (taskInput.value.length < 0) {
+  if (taskInput.value.length === 0) {
     return;
   }
   const taskList = {
