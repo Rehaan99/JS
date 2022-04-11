@@ -29,7 +29,10 @@ function sortList(tasks) {
   }
 }
 
-function addTask(event) {
+function createTask(event) {
+  if (taskInput.value < 1) {
+    return;
+  }
   const taskList = {
     task: taskInput.value,
     id: null,
