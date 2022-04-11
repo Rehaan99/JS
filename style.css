@@ -16,7 +16,6 @@ header {
 
 header,
 form {
-  min-height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,6 +41,8 @@ form button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: #000000;
+  border-radius: 2px;
 }
 .task-list {
   min-width: 30%;
@@ -89,6 +90,6 @@ form button:hover {
   background: greenyellow;
 }
 .fall {
-  transform: translateX(15rem);
+  transform: translateX(5rem);
   opacity: 0;
 }

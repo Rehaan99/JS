@@ -4,13 +4,12 @@ const taskList = document.querySelector(".task-list");
 const filterOption = document.querySelector(".filter-task");
 
 document.addEventListener("DOMContentLoaded", getTasks);
-taskButton.addEventListener("click", addTask);
+taskButton.addEventListener("click", createTask);
 taskList.addEventListener("click", taskButtonClickCheck);
 filterOption.addEventListener("change", filterTask);
 
 function getTasks() {
-  const tasks = localStorageTasks();
-  sortList(tasks);
+  const tasks = sortList(localStorageTasks());
   tasks.forEach((task) => {
     addTaskToPage(task);
   });
@@ -27,6 +26,7 @@ function sortList(tasks) {
       }
     }
   }
+  return tasks;
 }
 
 function createTask(event) {
@@ -41,8 +41,8 @@ function createTask(event) {
   };
   saveLocalTasks(taskList);
   event.preventDefault();
-  const overallTask = JSON.parse(localStorage.getItem("tasks"));
-  addTaskToPage(overallTask[overallTask.length - 1]);
+  const allTasks = JSON.parse(localStorage.getItem("tasks"));
+  addTaskToPage(allTasks[allTasks.length - 1]);
 }
 
 function addTaskToPage({ task: task, isComplete: complete, id: id }) {
@@ -50,7 +50,6 @@ function addTaskToPage({ task: task, isComplete: complete, id: id }) {
     newTask = document.createElement("li"),
     completedButton = document.createElement("button"),
     trashButton = document.createElement("button");
-
   taskDiv.classList.add("task");
   newTask.innerText = task;
   newTask.id = id;
@@ -75,7 +74,8 @@ function saveLocalTasks(task) {
     task.id = tasks.length;
   }
   tasks.push(task);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  const orderedTasks = sortList(tasks);
+  localStorage.setItem("tasks", JSON.stringify(orderedTasks));
 }
 
 function localStorageTasks() {
@@ -87,20 +87,20 @@ function localStorageTasks() {
 
 function taskButtonClickCheck(event) {
   const item = event.target,
-    task = item.parentElement;
+    taskElement = item.parentElement;
 
   if (item.classList[0] === "trash-btn") {
-    removeLocalTasks(task);
-    task.classList.add("fall");
-    task.addEventListener("transitionend", function () {
-      task.remove();
+    removeLocalTasks(taskElement);
+    taskElement.classList.add("fall");
+    taskElement.addEventListener("transitionend", function () {
+      taskElement.remove();
     });
   } else if (item.classList[0] === "complete-btn") {
-    task.classList.toggle("completed");
+    taskElement.classList.toggle("completed");
     const tasks = localStorageTasks(),
-      filteredTasks = findSpecificTask(tasks, task);
+      filteredTasks = findSpecificTask(tasks, taskElement);
     filteredTasks.isComplete = !filteredTasks.isComplete;
-    removeLocalTasks(task, true);
+    removeLocalTasks(taskElement, true);
     saveLocalTasks(filteredTasks);
   }
 }
@@ -128,6 +128,7 @@ function removeLocalTasks(taskElement, changedState) {
 }
 
 function orderStorageByIds(listOfStorageTasks, deletedId) {
+  listOfStorageTasks = sortList(listOfStorageTasks);
   listOfStorageTasks.forEach((task) => {
     if (task.id > deletedId) {
       document.getElementById(task.id.toString()).id = task.id -= 1;
@@ -135,6 +136,7 @@ function orderStorageByIds(listOfStorageTasks, deletedId) {
   });
   return listOfStorageTasks;
 }
+
 function filterTask(event) {
   const tasks = taskList.childNodes;
   tasks.forEach(function (task) {
