@@ -1,7 +1,7 @@
 const taskInput = document.querySelector(".task-input");
 const taskButton = document.querySelector(".task-create-button");
 const taskList = document.querySelector(".task-list");
-const filterOption = document.querySelector(".filter-task");
+const filterOption = document.querySelector(".sort-task");
 
 document.addEventListener("DOMContentLoaded", getTasks);
 taskButton.addEventListener("click", createTask);
